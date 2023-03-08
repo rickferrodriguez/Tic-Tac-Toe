@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { TURNS} from './constants.js'
+import { TURNS, WINNER_COMBOS} from './constants.js'
 import './App.css'
 
 const Square = ({index, children, isSelected, updateTurn}) => {
@@ -20,9 +20,24 @@ const Square = ({index, children, isSelected, updateTurn}) => {
 function App() {
   const [board, setBoard ] = useState(Array(9).fill(null))
   const [turn, setTurn] = useState(TURNS.X)
+  const [winner, setWinner] = useState(null)
+
+  const checkWinner = (boardToCheck) => {
+    for(const combo of WINNER_COMBOS){
+      const [a,b,c] = combo
+      if(
+        boardToCheck[a] &&
+          boardToCheck[a] ===boardToCheck[b] &&
+          boardToCheck[a] ===boardToCheck[c]
+      ){
+        return boardToCheck[a]
+      }
+    }
+    return null
+  }
 
   const updateTurn = (index) => {
-    if(board[index]) return 
+    if(board[index] || winner) return 
 
     const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
     setTurn(newTurn)
@@ -31,6 +46,11 @@ function App() {
     newBoard[index] = turn
     setBoard(newBoard)
 
+    const newWinner = checkWinner(newBoard)
+    if(newWinner){
+      setWinner(newWinner)
+      console.log(newWinner)
+    }
   }
 
 
