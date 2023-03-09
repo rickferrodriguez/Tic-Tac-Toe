@@ -36,6 +36,16 @@ function App() {
     return null
   }
 
+  const resetGame = () => {
+    setBoard(Array(9).fill(null))
+    setTurn(TURNS.X)
+    setWinner(null)
+  }
+
+  const checkGameOver = (array) => {
+    return array.every(position => position !== null)
+  }
+
   const updateTurn = (index) => {
     if(board[index] || winner) return 
 
@@ -50,6 +60,8 @@ function App() {
     if(newWinner){
       setWinner(newWinner)
       console.log(newWinner)
+    } else if(checkGameOver(newBoard)){
+      setWinner(false)
     }
   }
 
@@ -74,6 +86,30 @@ function App() {
         <Square isSelected={turn === TURNS.X}>{TURNS.X}</Square>
         <Square isSelected={turn === TURNS.O}>{TURNS.O}</Square>
       </section>
+
+      {
+        winner !== null && (
+          <section className="winner">
+            <div className="text">
+              <h2>
+                {
+                  winner === false 
+                    ? 'Ha ocurrido un empate'
+                    : 'Ha ganado'
+                }
+              </h2>
+
+              <header className="win">
+                {winner && <Square>{winner}</Square>}
+              </header>
+
+              <footer>
+                <button onClick={resetGame}>Reset the Game</button>
+              </footer>
+            </div>
+          </section>
+        )
+      }
     </main>
   )
 }
