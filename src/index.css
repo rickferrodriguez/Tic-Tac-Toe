@@ -6,14 +6,25 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #1F1F28;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-}
+
+  --clr-primary: -webkit-linear-gradient(0deg,
+  hsl(0deg 81% 53%) 0%,
+  hsl(7deg 84% 53%) 11%,
+  hsl(11deg 86% 54%) 22%,
+  hsl(15deg 88% 54%) 33%,
+  hsl(19deg 91% 55%) 44%,
+  hsl(21deg 93% 56%) 56%,
+  hsl(24deg 94% 57%) 67%,
+  hsl(26deg 96% 59%) 78%,
+  hsl(28deg 98% 60%) 89%,
+  hsl(30deg 100% 62%) 100%);}
 
 body {
   margin: 0;
@@ -35,17 +46,24 @@ body {
   text-align: center;
 }
 
-.board h1 {
-  color: #eee;
-  margin-bottom: 16px;
+.title-container h1 {
+  margin: 0 auto;
+  padding-top: 1.6rem;
+  font-size: 72px;
+  height: 80px;
+  /* background: -webkit-linear-gradient(#DCD7BA, #333); */
+  background: var(--clr-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
+
 
 .board button {
   padding: 8px 12px;
   margin: 25px;
   background: transparent;
-  border: 2px solid #eee;
-  color: #eee;
+  border: 2px solid #43242B;
+  color: #DCD7BA;
   width: 100px;
   border-radius: 5px;
   transition: 0.2s;
@@ -54,8 +72,8 @@ body {
 }
 
 .board button:hover {
-  background: #eee;
-  color: #222;
+  background: #43242B;
+  color: #DCD7BA;
 }
 
 .board .game {
@@ -82,8 +100,9 @@ body {
 }
 
 .square.is-selected {
-  color: #fff;
-  background: #09f;
+  color: #DCD7BA;
+  background: #7E9CD8;
+  border: 2px solid #54546D;
 }
 
 .winner {
@@ -101,7 +120,7 @@ body {
   background: #111;
   height: 300px;
   width: 320px;
-  border: 2px solid #eee;
+  border: 2px solid #DCD7BA;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -113,7 +132,7 @@ body {
 .winner .win {
   margin: 0 auto;
   width: fit-content;
-  border: 2px solid #eee;
+  border: 2px solid #DCD7BA;
   border-radius: 10px;
   display: flex;
   gap: 15px;
@@ -122,10 +141,11 @@ body {
 .square {
   width: 100px;
   height: 100px;
-  border: 2px solid #eee;
+  border: 2px solid #DCD7BA;
   border-radius: 5px;
   display: grid;
   place-items: center;
   cursor: pointer;
   font-size: 48px;
 }
+

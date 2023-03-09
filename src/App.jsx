@@ -67,49 +67,55 @@ function App() {
 
 
   return (
-    <main className="board">
-      <section className="game">
+    <main>
+      <div className="title-container">
+        <h1>Tic Tac Toe</h1>
+      </div>
+      <section className="board">
+        <button onClick={resetGame}>Reset Game</button>
+        <section className="game">
+          {
+            board.map((square, index) => (
+              <Square 
+                key={index}
+                index={index}
+                updateTurn={updateTurn}
+              >
+                {square}
+              </Square>
+            ))
+          }
+        </section>
+
+        <section className="turn">
+          <Square isSelected={turn === TURNS.X}>{TURNS.X}</Square>
+          <Square isSelected={turn === TURNS.O}>{TURNS.O}</Square>
+        </section>
+
         {
-          board.map((square, index) => (
-            <Square 
-              key={index}
-              index={index}
-              updateTurn={updateTurn}
-            >
-              {square}
-            </Square>
-          ))
+          winner !== null && (
+            <section className="winner">
+              <div className="text">
+                <h2>
+                  {
+                    winner === false 
+                      ? 'Ha ocurrido un empate'
+                      : 'Ha ganado'
+                  }
+                </h2>
+
+                <header className="win">
+                  {winner && <Square>{winner}</Square>}
+                </header>
+
+                <footer>
+                  <button onClick={resetGame}>Reset the Game</button>
+                </footer>
+              </div>
+            </section>
+          )
         }
       </section>
-
-      <section className="turn">
-        <Square isSelected={turn === TURNS.X}>{TURNS.X}</Square>
-        <Square isSelected={turn === TURNS.O}>{TURNS.O}</Square>
-      </section>
-
-      {
-        winner !== null && (
-          <section className="winner">
-            <div className="text">
-              <h2>
-                {
-                  winner === false 
-                    ? 'Ha ocurrido un empate'
-                    : 'Ha ganado'
-                }
-              </h2>
-
-              <header className="win">
-                {winner && <Square>{winner}</Square>}
-              </header>
-
-              <footer>
-                <button onClick={resetGame}>Reset the Game</button>
-              </footer>
-            </div>
-          </section>
-        )
-      }
     </main>
   )
 }
