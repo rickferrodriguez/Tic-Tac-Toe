@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { TURNS, WINNER_COMBOS} from './constants.js'
 import './App.css'
+import confetti from 'canvas-confetti'
 
 const Square = ({index, children, isSelected, updateTurn}) => {
 
@@ -58,8 +59,8 @@ function App() {
 
     const newWinner = checkWinner(newBoard)
     if(newWinner){
+      confetti()
       setWinner(newWinner)
-      console.log(newWinner)
     } else if(checkGameOver(newBoard)){
       setWinner(false)
     }
