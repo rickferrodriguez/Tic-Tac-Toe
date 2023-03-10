@@ -6,7 +6,7 @@ import { TURNS } from './constants.js'
 import { Square } from './components/Square.jsx'
 import { checkWinnerFrom } from './logic/board.js'
 
-function App () {
+function App() {
   const [board, setBoard] = useState(Array(9).fill(null))
   const [turn, setTurn] = useState(TURNS.X)
   const [winner, setWinner] = useState(null)
