@@ -43,7 +43,7 @@ function App () {
   return (
     <main>
       <div className='title-container'>
-        <h1>Tic Tac Toe</h1>
+        <h1>Tic-Tac-Toe</h1>
       </div>
       <section className='board'>
         <button onClick={resetGame}>Reset Game</button>
