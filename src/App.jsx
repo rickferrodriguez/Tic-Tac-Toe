@@ -61,7 +61,6 @@ function App () {
       </div>
       <section className='board'>
         <button onClick={resetGame}>Reset Game</button>
-        {console.log(board)}
         <section className='game'>
           <BoardGame board={board} updateTurn={updateTurn} />
         </section>
