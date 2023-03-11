@@ -5,18 +5,29 @@ import confetti from 'canvas-confetti'
 import { TURNS } from './constants.js'
 import { Square } from './components/Square.jsx'
 import { checkWinnerFrom, checkGameOver } from './logic/board.js'
+import { resetGameStorage, saveGameToStorage } from './logic/storage/index.js'
 import { WinnerModal } from './components/WinnerModal.jsx'
 import { BoardGame } from './components/BoardGame.jsx'
 
 function App () {
-  const [board, setBoard] = useState(Array(9).fill(null))
-  const [turn, setTurn] = useState(TURNS.X)
+  const [board, setBoard] = useState(() => {
+    const boardFromStorage = window.localStorage.getItem('board')
+    if (boardFromStorage) return JSON.parse(boardFromStorage)
+    return Array(9).fill(null)
+  })
+
+  const [turn, setTurn] = useState(() => {
+    const turnFromLocalStorage = window.localStorage.getItem('turn')
+    return turnFromLocalStorage ?? TURNS.X
+  })
   const [winner, setWinner] = useState(null)
 
   const resetGame = () => {
     setBoard(Array(9).fill(null))
     setTurn(TURNS.X)
     setWinner(null)
+
+    resetGameStorage()
   }
 
   const updateTurn = (index) => {
@@ -28,6 +39,11 @@ function App () {
     const newBoard = [...board]
     newBoard[index] = turn
     setBoard(newBoard)
+
+    saveGameToStorage({
+      newBoard: { newBoard },
+      newTurn: { newTurn }
+    })
 
     const newWinner = checkWinnerFrom(newBoard)
     if (newWinner) {
@@ -45,6 +61,7 @@ function App () {
       </div>
       <section className='board'>
         <button onClick={resetGame}>Reset Game</button>
+        {console.log(board)}
         <section className='game'>
           <BoardGame board={board} updateTurn={updateTurn} />
         </section>
