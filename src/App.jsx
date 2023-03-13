@@ -15,11 +15,13 @@ function App () {
     if (boardFromStorage) return JSON.parse(boardFromStorage)
     return Array(9).fill(null)
   })
+  console.log(board)
 
   const [turn, setTurn] = useState(() => {
     const turnFromLocalStorage = window.localStorage.getItem('turn')
     return turnFromLocalStorage ?? TURNS.X
   })
+
   const [winner, setWinner] = useState(null)
 
   const resetGame = () => {
@@ -33,16 +35,16 @@ function App () {
   const updateTurn = (index) => {
     if (board[index] || winner) return
 
-    const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
-    setTurn(newTurn)
-
     const newBoard = [...board]
     newBoard[index] = turn
     setBoard(newBoard)
 
+    const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
+    setTurn(newTurn)
+
     saveGameToStorage({
-      newBoard: { newBoard },
-      newTurn: { newTurn }
+      newBoard,
+      newTurn
     })
 
     const newWinner = checkWinnerFrom(newBoard)
